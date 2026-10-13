@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#16402a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>La Villa · Facturación</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">🥜</span><div><h1>Comestibles La Villa</h1><small>Facturación y tirillas de 80 mm</small></div></div>
+  <nav class="tabs">
+    <button class="tab on" data-tab="pos">🛒 Venta manual</button>
+    <button class="tab" data-tab="siigo">📄 Factura Siigo</button>
+  </nav>
+</header>
+
+<main>
+  <section id="pos" class="layout">
+    <div>
+      <div class="tools">
+        <input id="buscar" type="search" placeholder="Buscar producto…" autocomplete="off" enterkeyhint="search">
+        <div class="seg" id="precios"><button data-m="1" class="on">Precio 1</button><button data-m="2">Precio 2</button></div>
+      </div>
+      <div class="chips" id="cats"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+    <aside class="cart card" id="cart" aria-label="Venta actual">
+      <div class="cart-head">
+        <h2>Venta actual</h2>
+        <div class="cart-acts">
+          <button id="limpiar" class="link" type="button">Vaciar</button>
+          <button id="cartCerrar" class="link cart-close" type="button">Cerrar ✕</button>
+        </div>
+      </div>
+      <input id="cliente" placeholder="Cliente (opcional)" autocomplete="off" enterkeyhint="done">
+      <ul id="lista" class="lista"></ul>
+      <p id="vacio" class="vacio">Toca un producto para agregarlo 👆</p>
+      <div class="total"><span>Total a pagar</span><strong id="total">$0</strong></div>
+      <button id="generar" class="btn primary" disabled>Generar ticket</button>
+    </aside>
+  </section>
+
+  <section id="siigo" class="wrap" hidden>
+    <label id="drop" class="drop card" for="pdfInput">
+      <span class="big">📄</span>
+      <b>Suelta aquí la factura de Siigo</b>
+      <small>o toca para elegir el PDF</small>
+      <input type="file" id="pdfInput" accept="application/pdf,.pdf" hidden>
+    </label>
+    <p id="estado" class="estado" role="status" aria-live="polite">Esperando archivo…</p>
+    <div id="resultado" class="card result" hidden>
+      <div id="visor" class="preview" aria-label="Vista previa de la tirilla"></div>
+      <button id="btnDescargar" class="btn primary">⬇️ Descargar tirilla 80 mm</button>
+      <button id="btnCompartir" class="btn ghost" hidden>📤 Compartir / imprimir</button>
+    </div>
+  </section>
+</main>
+
+<!-- Barra inferior (celulares): total, abrir la venta y generar -->
+<div class="bar" id="bar">
+  <button class="bar-sum" id="barVer" type="button" aria-controls="cart" aria-expanded="false">
+    <small id="barCount">Sin productos</small><strong id="barTotal">$0</strong>
+  </button>
+  <button id="barBtn" class="btn primary" disabled>Generar ticket</button>
+</div>
+<div class="sheet-bg" id="sheetBg"></div>
+
+<dialog id="dlg">
+  <div class="dlg-head"><h3>Vista previa del ticket</h3><button id="dlgCerrar" class="link" type="button">Cerrar ✕</button></div>
+  <div id="dlgVisor" class="preview" aria-label="Vista previa del ticket"></div>
+  <div class="dlg-foot"><button id="dlgCompartir" class="btn ghost" hidden>📤 Compartir</button><button id="dlgDescargar" class="btn primary">⬇️ Descargar</button></div>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- Librerías primero, luego los scripts propios -->
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="tirilla.js"></script>
+<script src="productos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
